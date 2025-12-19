@@ -32,21 +32,23 @@ export default function ReservasiPage() {
   useEffect(() => {
     setMounted(true);
     
-    // ✅ Ambil data user dari storage
-    const userData = sessionStorage.getItem('user') || localStorage.getItem('user');
-    if (userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-        
-        // Auto-fill form dengan data user jika ada
-        setFormData(prev => ({
-          ...prev,
-          nama: parsedUser.name || '',
-          email: parsedUser.email || '',
-        }));
-      } catch (error) {
-        console.error('Error parsing user data:', error);
+    // ✅ Cek apakah di browser dulu
+    if (typeof window !== 'undefined') {
+      const userData = sessionStorage.getItem('user') || localStorage.getItem('user');
+      if (userData) {
+        try {
+          const parsedUser = JSON.parse(userData);
+          setUser(parsedUser);
+          
+          // Auto-fill form dengan data user jika ada
+          setFormData(prev => ({
+            ...prev,
+            nama: parsedUser.name || '',
+            email: parsedUser.email || '',
+          }));
+        } catch (error) {
+          console.error('Error parsing user data:', error);
+        }
       }
     }
 
