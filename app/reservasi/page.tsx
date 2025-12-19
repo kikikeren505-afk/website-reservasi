@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-
 // Lokasi: app/reservasi/page.tsx
 // ✅ PERUBAHAN: Ganti handleSubmit dan tambah fetch harga kost real
 
@@ -522,7 +520,6 @@ export default function ReservasiPage() {
   );
 }
 
-// Styles tetap sama...
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
     minHeight: '100vh',
