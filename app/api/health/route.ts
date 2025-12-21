@@ -1,23 +1,23 @@
 // Lokasi: app/api/health/route.ts
-// ✅ DIPERBAIKI: Sesuaikan dengan PostgreSQL format
+// ✅ DIPERBAIKI: Pakai query() function yang sudah return rows
 
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import { query } from '@/lib/db';
 
 export async function GET() {
   try {
     // Test database connection
-    const result = await pool.query('SELECT 1 as test');
+    const result = await query('SELECT 1 as test, NOW() as timestamp');
 
     return NextResponse.json({
       status: 'ok',
       message: 'API is running',
       database: 'connected',
       timestamp: new Date().toISOString(),
-      dbTest: result.rows[0],
+      dbTest: result[0], // ✅ result sudah array, langsung akses [0]
     });
   } catch (error: any) {
-    console.error('Health check failed:', error);
+    console.error('❌ Health check failed:', error);
     return NextResponse.json(
       {
         status: 'error',
